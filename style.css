@@ -1,0 +1,197 @@
+/* ===== 불러오기 창 ===== */
+#dbi_overlay {
+    /* ST 쪽 CSS가 고정 요소 위치를 흔들 수 있어서 필수 값은 !important로 고정 */
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: var(--dbi-vh, 100vh) !important;
+    margin: 0 !important;
+    transform: none !important;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    /* center 대신: 창이 화면보다 커도 위쪽이 잘리지 않게 (dialog의 margin:auto가 가운데 정렬 담당) */
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 16px 8px;
+    box-sizing: border-box;
+}
+#dbi_dialog {
+    width: min(640px, 100%);
+    margin: auto;
+    max-height: calc(var(--dbi-vh, 100vh) - 32px);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;
+    background: var(--SmartThemeBlurTintColor, #222);
+    backdrop-filter: blur(var(--SmartThemeBlurStrength, 10px));
+    color: var(--SmartThemeBodyColor, #ddd);
+    border: 1px solid var(--SmartThemeBorderColor, #444);
+    border-radius: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+}
+#dbi_dialog label { font-size: 0.85em; }
+/* 세로 flex 안에서 내용이 많으면 자식들이 눌려 찌그러지는 것 방지 */
+#dbi_dialog > * { flex-shrink: 0; }
+#dbi_dialog .text_pole { width: 100%; box-sizing: border-box; font-size: 16px; }
+.dbi_head, .dbi_bar, .dbi_foot {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.dbi_head { justify-content: space-between; }
+.dbi_bar .text_pole { flex: 1; min-width: 0; margin: 0; }
+.dbi_icon_btn { flex: 0 0 auto; }
+.dbi_selbar .menu_button { font-size: 0.85em; }
+/* 버튼 글자가 세로로 쪼개지지 않게 */
+#dbi_dialog .menu_button {
+    flex: 0 0 auto;
+    width: auto;
+    white-space: nowrap;
+    writing-mode: horizontal-tb;
+}
+#dbi_dialog .dbi_foot .menu_button { flex: 1 1 0; }
+.dbi_selbar #dbi_count { margin-left: auto; white-space: nowrap; }
+.dbi_muted { opacity: 0.65; font-size: 0.85em; }
+.dbi_pad { padding: 12px; text-align: center; }
+.dbi_err { color: var(--warning, #e77); }
+.dbi_hint, .dbi-settings .dbi_hint { font-size: 0.78em; opacity: 0.6; }
+.dbi_check { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.dbi_check input { width: auto; margin: 0; }
+
+#dbi_list {
+    flex: 0 0 auto;
+    height: min(40vh, 360px);
+    overflow-y: auto;
+    border: 1px solid var(--SmartThemeBorderColor, #444);
+    border-radius: 8px;
+    padding: 4px;
+}
+.dbi_day {
+    text-align: center;
+    font-size: 0.72em;
+    opacity: 0.6;
+    margin: 8px 0 4px;
+}
+.dbi_item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+}
+.dbi_item:hover { background: rgba(128, 128, 128, 0.12); }
+.dbi_item.dbi_is_user { border-left-color: rgba(128, 170, 255, 0.5); }
+.dbi_item.dbi_on { background: rgba(120, 180, 255, 0.18); }
+.dbi_item input { margin-top: 3px; pointer-events: none; }
+.dbi_item_body { flex: 1; min-width: 0; }
+.dbi_item_meta { font-size: 0.8em; }
+.dbi_item_meta span { opacity: 0.55; margin-left: 4px; }
+.dbi_item_text {
+    font-size: 0.9em;
+    white-space: pre-wrap;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.dbi_range {
+    flex: 0 0 auto;
+    padding: 3px 7px;
+    font-size: 0.8em;
+    opacity: 0.5;
+}
+.dbi_range:hover { opacity: 1; }
+
+.dbi_opts summary { cursor: pointer; font-weight: 600; margin: 4px 0; }
+.dbi_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 10px;
+}
+.dbi_grid label { display: flex; flex-direction: column; gap: 2px; }
+.dbi_grid .text_pole { margin: 0; }
+#dbi_after_peek { margin: 4px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#dbi_preview {
+    max-height: 40vh;
+    overflow-y: auto;
+    padding: 4px 0;
+}
+.dbi_plain {
+    white-space: pre-wrap;
+    font-size: 0.9em;
+    border-left: 2px solid var(--SmartThemeBorderColor, #555);
+    padding: 2px 8px;
+    margin: 4px 0;
+}
+.dbi_foot { justify-content: flex-end; margin-top: 4px; }
+.dbi_primary { font-weight: 600; }
+#dbi_insert.disabled { opacity: 0.5; pointer-events: none; }
+
+@media (max-width: 520px) {
+    #dbi_overlay {
+        padding: 0;
+        align-items: stretch;
+    }
+    #dbi_dialog {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        max-height: none;
+        border-radius: 0;
+        padding: calc(10px + env(safe-area-inset-top, 0px)) 10px calc(10px + env(safe-area-inset-bottom, 0px));
+    }
+    #dbi_list { height: 45vh; height: 45dvh; }
+    .dbi_grid { grid-template-columns: 1fr; }
+    .dbi_range { opacity: 0.8; padding: 6px 9px; }
+    .dbi_foot {
+        position: sticky;
+        bottom: calc(-10px - env(safe-area-inset-bottom, 0px));
+        background: var(--SmartThemeBlurTintColor, #222);
+        padding: 8px 0 calc(8px + env(safe-area-inset-bottom, 0px));
+    }
+    #dbi_dialog .dbi_foot .menu_button { flex: 1 1 0; justify-content: center; padding: 10px; }
+}
+
+/* ===== 설정 패널 ===== */
+.dbi-settings label { display: block; margin-top: 8px; font-weight: 600; }
+.dbi-settings .dbi_bar { margin-top: 2px; }
+.dbi-settings #dbi_preset_css {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 0.8em;
+    min-height: 160px;
+    resize: vertical;
+}
+.dbi-settings .dbi_wide { width: 100%; justify-content: center; margin-top: 6px; box-sizing: border-box; }
+.dbi-settings #dbi_preset_preview { margin-top: 4px; }
+
+/* 채팅 안에서 스타일 메시지 기본 처리 */
+/* 이전에 저장된 프리셋에도 적용되도록: 연속 말풍선 간격 기본값 */
+.dbi-chat .dbi-line + .dbi-line, .custom-dbi-chat .custom-dbi-line + .custom-dbi-line { margin-top: 6px; }
+.mes_text .dbi-chat, .mes_text .custom-dbi-chat { margin: 2px 0; font-style: normal; }
+.mes_text .dbi-chat p, .mes_text .custom-dbi-chat p { margin: 0; }
+
+/* 설정 패널의 체크박스 줄: '.dbi-settings label {display:block}' 보다 우선해서 한 줄로 */
+.dbi-settings label.dbi_check {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    font-weight: normal;
+    margin-top: 8px;
+    cursor: pointer;
+}
+.dbi-settings label.dbi_check input[type="checkbox"] {
+    flex: 0 0 auto;
+    width: auto;
+    margin: 0;
+}

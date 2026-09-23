@@ -1,0 +1,12 @@
+{
+    "display_name": "Discord Bridge Importer",
+    "loading_order": 110,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "netnet",
+    "version": "0.2.1",
+    "homePage": "",
+    "auto_update": false
+}
